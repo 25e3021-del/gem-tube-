@@ -11,7 +11,7 @@ interface HistoryProps {
 
 const History: React.FC<HistoryProps> = ({ videos, setHistory }) => {
   const handleClear = () => {
-    if (confirm("Confirm Neural Wipe? All history will be purged.")) {
+    if (confirm("Clear all watch history?")) {
       setHistory([]);
     }
   };
@@ -25,20 +25,20 @@ const History: React.FC<HistoryProps> = ({ videos, setHistory }) => {
               <Activity className="w-8 h-8 text-cyan-400" />
             </div>
             <div>
-              <h1 className="text-3xl font-black font-futuristic uppercase tracking-tighter italic">Core Log</h1>
-              <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.4em]">Neural Session History</p>
+              <h1 className="text-3xl font-black font-futuristic uppercase tracking-tighter italic">History</h1>
+              <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.4em]">Videos you have watched</p>
             </div>
           </div>
-          <button onClick={handleClear} className="flex items-center space-x-3 bg-red-500/10 hover:bg-red-500/20 text-red-500 px-6 py-3 rounded-full border border-red-500/20 transition-all text-[10px] font-black uppercase tracking-widest">
+          <button onClick={handleClear} className="flex items-center space-x-3 bg-red-500/10 hover:bg-red-500/20 text-red-500 px-6 py-3 rounded-full border border-red-500/20 transition-all text-[10px] font-bold uppercase tracking-widest">
             <Trash2 className="w-4 h-4" />
-            <span>Wipe Core Buffer</span>
+            <span>Clear History</span>
           </button>
         </div>
 
         {videos.length === 0 ? (
           <div className="py-40 text-center opacity-20">
             <Clock className="w-16 h-16 mx-auto mb-6" />
-            <p className="text-xs font-black uppercase tracking-[0.5em]">No recent activity logged.</p>
+            <p className="text-xs font-black uppercase tracking-[0.5em]">No history found.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">

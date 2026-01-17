@@ -1,8 +1,16 @@
 
 export enum Modality {
   VIDEO = 'VIDEO',
-  BURST = 'BURST',
-  LIVE = 'LIVE'
+  REELS = 'REELS',
+  LIVE = 'LIVE',
+  IMAGE = 'IMAGE'
+}
+
+export interface User {
+  id: string;
+  name: string;
+  avatar: string;
+  email?: string;
 }
 
 export interface Video {
@@ -34,7 +42,8 @@ export enum Category {
   Education = 'Education',
   Space = 'Space',
   Cooking = 'Cooking',
-  Travel = 'Travel'
+  Travel = 'Travel',
+  Photos = 'Photos'
 }
 
 export interface Comment {

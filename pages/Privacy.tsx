@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Shield, Globe, Eye, EyeOff, Lock, Zap, Cpu } from 'lucide-react';
+import { Shield, Globe, EyeOff, Lock, Zap, Cpu } from 'lucide-react';
 
 interface PrivacyProps {
   mode: 'mesh' | 'stealth';
@@ -16,13 +16,12 @@ const Privacy: React.FC<PrivacyProps> = ({ mode, setMode }) => {
             <Shield className="w-10 h-10 text-cyan-400" />
           </div>
           <div>
-            <h1 className="text-4xl font-black font-futuristic uppercase tracking-tighter italic">Global Privacy</h1>
-            <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.4em]">Mesh Protocol // Identity Encryption</p>
+            <h1 className="text-4xl font-black font-futuristic uppercase tracking-tighter italic">Privacy & Security</h1>
+            <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.4em]">Manage Your Visibility Online</p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {/* Mesh Public Option */}
           <button 
             onClick={() => setMode('mesh')}
             className={`p-8 rounded-[40px] border transition-all text-left relative overflow-hidden group ${
@@ -35,13 +34,11 @@ const Privacy: React.FC<PrivacyProps> = ({ mode, setMode }) => {
               <div className={`p-4 rounded-2xl inline-block mb-6 ${mode === 'mesh' ? 'bg-cyan-500 text-black' : 'bg-white/5 text-zinc-500'}`}>
                 <Globe className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-black uppercase tracking-widest mb-2 font-futuristic">Mesh Public</h3>
-              <p className="text-xs text-zinc-500 font-bold leading-relaxed">Signals are broadcasted to the global Aethex Flows network. Visible to all nodes in the mesh.</p>
+              <h3 className="text-xl font-black uppercase tracking-widest mb-2 font-futuristic">Public Mode</h3>
+              <p className="text-xs text-zinc-500 font-bold leading-relaxed">Your videos are shared with everyone on the platform.</p>
             </div>
-            {mode === 'mesh' && <Zap className="absolute top-6 right-6 w-5 h-5 text-cyan-400 animate-pulse" />}
           </button>
 
-          {/* Stealth Local Option */}
           <button 
             onClick={() => setMode('stealth')}
             className={`p-8 rounded-[40px] border transition-all text-left relative overflow-hidden group ${
@@ -54,19 +51,18 @@ const Privacy: React.FC<PrivacyProps> = ({ mode, setMode }) => {
               <div className={`p-4 rounded-2xl inline-block mb-6 ${mode === 'stealth' ? 'bg-purple-500 text-black' : 'bg-white/5 text-zinc-500'}`}>
                 <Lock className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-black uppercase tracking-widest mb-2 font-futuristic">Stealth Mode</h3>
-              <p className="text-xs text-zinc-500 font-bold leading-relaxed">Signals are cached locally on this node only. Zero-knowledge transmission to the central mesh.</p>
+              <h3 className="text-xl font-black uppercase tracking-widest mb-2 font-futuristic">Private Mode</h3>
+              <p className="text-xs text-zinc-500 font-bold leading-relaxed">Your videos are kept private and visible only to you.</p>
             </div>
-            {mode === 'stealth' && <Cpu className="absolute top-6 right-6 w-5 h-5 text-purple-400 animate-spin-slow" />}
           </button>
         </div>
 
         <div className="space-y-4">
-          <h4 className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em] mb-6">Security Modules</h4>
+          <h4 className="text-[10px] font-black text-zinc-500 uppercase tracking-[0.4em] mb-6">Settings List</h4>
           {[
-            { icon: <EyeOff className="w-5 h-5" />, label: "Hide Retinal Signature", status: "Active" },
-            { icon: <Zap className="w-5 h-5" />, label: "Quantum Metadata Stripping", status: "Active" },
-            { icon: <Shield className="w-5 h-5" />, label: "Asanix Firewall Sync", status: "Enabled" },
+            { icon: <EyeOff className="w-5 h-5" />, label: "Hide Profile Image", status: "Enabled" },
+            { icon: <Zap className="w-5 h-5" />, label: "Quantum Encryption", status: "Active" },
+            { icon: <Shield className="w-5 h-5" />, label: "App Firewall", status: "Enabled" },
           ].map((item, i) => (
             <div key={i} className="flex items-center justify-between p-6 glass rounded-3xl border-white/5">
               <div className="flex items-center space-x-6">
@@ -76,13 +72,6 @@ const Privacy: React.FC<PrivacyProps> = ({ mode, setMode }) => {
               <span className="text-[10px] font-black text-cyan-400 uppercase tracking-widest bg-cyan-500/10 px-3 py-1 rounded">{item.status}</span>
             </div>
           ))}
-        </div>
-
-        <div className="mt-16 p-8 bg-white/5 rounded-[40px] border border-white/5 text-center">
-          <p className="text-[9px] font-black text-zinc-700 uppercase tracking-[0.5em] leading-loose">
-            Global mesh verified by Asanix Protocol v4.0.0-Privacy <br />
-            No data is stored on remote servers unless explicitly permitted by the local node.
-          </p>
         </div>
       </div>
     </div>

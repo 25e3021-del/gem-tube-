@@ -17,8 +17,8 @@ const Liked: React.FC<LikedProps> = ({ videos }) => {
             <Heart className="w-8 h-8 text-purple-400 fill-purple-400/20" />
           </div>
           <div>
-            <h1 className="text-3xl font-black font-futuristic uppercase tracking-tighter italic italic">Sync List</h1>
-            <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.4em]">Boosted Neural Fragments</p>
+            <h1 className="text-3xl font-black font-futuristic uppercase tracking-tighter italic italic">Liked Videos</h1>
+            <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.4em]">Videos you have liked</p>
           </div>
         </div>
 
@@ -36,7 +36,7 @@ const Liked: React.FC<LikedProps> = ({ videos }) => {
         {videos.length === 0 && (
           <div className="flex flex-col items-center justify-center py-40 text-center opacity-30">
             <Heart className="w-16 h-16 mb-6 text-zinc-800" />
-            <p className="text-xs font-black uppercase tracking-[0.5em]">No synchronization nodes detected.</p>
+            <p className="text-xs font-bold uppercase tracking-[0.5em]">No liked videos yet.</p>
           </div>
         )}
       </div>
