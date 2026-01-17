@@ -18,7 +18,7 @@ export const getAISearchResults = async (query: string, videos: any[]) => {
           type: Type.ARRAY,
           items: { type: Type.STRING }
         },
-        systemInstruction: "You are the AetherFlow Neural Indexer developed by Asanix Developers. Your job is to accurately match user intent to our video data fragments."
+        systemInstruction: "You are the Aethex Flows Neural Indexer developed by Asanix Developers. Your job is to accurately match user intent to our video data fragments."
       }
     });
 
@@ -42,7 +42,7 @@ export const getVideoSummary = async (title: string, description: string) => {
       Title: ${title}
       Description: ${description}`,
       config: {
-        systemInstruction: "You are a concise video summarizer for AetherFlow by Asanix Developers. Provide a 2-3 sentence engaging, futuristic summary."
+        systemInstruction: "You are a concise video summarizer for Aethex Flows by Asanix Developers. Provide a 2-3 sentence engaging, futuristic summary."
       }
     });
     return response.text;

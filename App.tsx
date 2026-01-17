@@ -17,9 +17,9 @@ import { GoogleGenAI } from "@google/genai";
 import { MOCK_VIDEOS } from './constants';
 import { Video, Modality, Category } from './types';
 
-const STORAGE_KEY = 'AETHERFLOW_DATA_V1';
-const HISTORY_KEY = 'AETHERFLOW_HISTORY_V1';
-const LIKED_KEY = 'AETHERFLOW_LIKED_V1';
+const STORAGE_KEY = 'AETHEXFLOW_DATA_V1';
+const HISTORY_KEY = 'AETHEXFLOW_HISTORY_V1';
+const LIKED_KEY = 'AETHEXFLOW_LIKED_V1';
 
 const App: React.FC = () => {
   // Persistence Logic
@@ -55,7 +55,7 @@ const App: React.FC = () => {
 
   const [chatInput, setChatInput] = useState('');
   const [chatHistory, setChatHistory] = useState<{ role: 'user' | 'ai'; text: string }[]>([
-    { role: 'ai', text: 'Identity confirmed. Welcome to AetherFlow. Your signals are currently persistent in this local node.' }
+    { role: 'ai', text: 'Identity confirmed. Welcome to Aethex Flows. Your signals are currently persistent in this local node.' }
   ]);
   const [isTyping, setIsTyping] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
@@ -136,7 +136,7 @@ const App: React.FC = () => {
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: userMessage,
-        config: { systemInstruction: "You are the AetherFlow Neural Guide. Helping users publish signals." }
+        config: { systemInstruction: "You are the Aethex Flows Neural Guide. Helping users publish signals." }
       });
       setChatHistory(prev => [...prev, { role: 'ai', text: response.text || 'Signal lost.' }]);
     } catch (error) {

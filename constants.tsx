@@ -106,7 +106,7 @@ export const MOCK_VIDEOS: Video[] = [
 
 export const MOCK_COMMENTS: Comment[] = [
   { id: 'c1', author: 'NexusExplorer', avatar: 'https://i.pravatar.cc/150?u=nexus', text: 'The Asanix core is actually faster than my local retinal link. Incredible latency!', likes: 8900, time: '1m' },
-  { id: 'c2', author: 'VoidWalker', avatar: 'https://i.pravatar.cc/150?u=void', text: 'Is this 16K neural projection compatible with the AetherFlow protocol?', likes: 450, time: '12m' }
+  { id: 'c2', author: 'VoidWalker', avatar: 'https://i.pravatar.cc/150?u=void', text: 'Is this 16K neural projection compatible with the Aethex Flows protocol?', likes: 450, time: '12m' }
 ];
 
 export const NAV_ITEMS = [

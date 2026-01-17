@@ -59,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({ onSearch, onToggleSidebar, onOpenUpload
             </div>
           </div>
           <span className="text-2xl font-black tracking-widest font-futuristic bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent italic">
-            AETHERFLOW
+            AETHEX FLOWS
           </span>
         </Link>
       </div>
