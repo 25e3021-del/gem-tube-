@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { MOCK_VIDEOS, MOCK_COMMENTS } from '../constants';
-import { Zap, Share2, Activity, MoreHorizontal, MessageSquare, Sparkles, Terminal, User } from 'lucide-react';
+import { Zap, Share2, Activity, MoreHorizontal, MessageSquare, Sparkles, Terminal, User, Check } from 'lucide-react';
 import { getVideoSummary } from '../services/gemini';
 import VideoCard from '../components/VideoCard';
 
@@ -11,9 +11,15 @@ const Watch: React.FC = () => {
   const video = MOCK_VIDEOS.find(v => v.id === id);
   const [summary, setSummary] = useState<string | null>(null);
   const [isSummarizing, setIsSummarizing] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isBoosted, setIsBoosted] = useState(false);
+  const [boostCount, setBoostCount] = useState(0);
 
   useEffect(() => {
     setSummary(null);
+    setIsSubscribed(false);
+    setIsBoosted(false);
+    setBoostCount(Math.floor(Math.random() * 5000));
     window.scrollTo(0, 0);
   }, [id]);
 
@@ -23,6 +29,11 @@ const Watch: React.FC = () => {
     const res = await getVideoSummary(video.title, video.description);
     setSummary(res || "Signal lost. Summary corrupted.");
     setIsSummarizing(false);
+  };
+
+  const toggleBoost = () => {
+    setIsBoosted(!isBoosted);
+    setBoostCount(prev => isBoosted ? prev - 1 : prev + 1);
   };
 
   if (!video) return <div className="p-20 font-futuristic text-center text-zinc-800">DATA FRAGMENT NOT FOUND</div>;
@@ -66,16 +77,26 @@ const Watch: React.FC = () => {
                   <span className="font-bold text-lg tracking-tight">{video.author.name}</span>
                   <span className="text-[10px] font-black text-cyan-400 uppercase tracking-widest">{video.author.subscribers} NODE FOLLOWERS</span>
                 </div>
-                <button className="bg-white text-black px-6 py-2.5 rounded-full text-xs font-black tracking-widest hover:bg-cyan-400 transition-all ml-4 uppercase">
-                  Subscribe
+                <button 
+                  onClick={() => setIsSubscribed(!isSubscribed)}
+                  className={`px-6 py-2.5 rounded-full text-xs font-black tracking-widest transition-all ml-4 uppercase flex items-center space-x-2 ${
+                    isSubscribed 
+                      ? 'bg-zinc-800 text-zinc-500 hover:text-white border border-white/10' 
+                      : 'bg-white text-black hover:bg-cyan-400'
+                  }`}
+                >
+                  {isSubscribed ? <><Check className="w-3 h-3" /> <span>Synced</span></> : 'Sync Node'}
                 </button>
               </div>
 
               <div className="flex items-center space-x-3">
                 <div className="flex glass rounded-full border-white/10">
-                  <button className="flex items-center space-x-2 px-6 py-3 border-r border-white/5 hover:bg-white/5 rounded-l-full transition-colors">
-                    <Zap className="w-5 h-5 text-cyan-400 fill-current" />
-                    <span className="text-xs font-black tracking-widest uppercase">Boost</span>
+                  <button 
+                    onClick={toggleBoost}
+                    className={`flex items-center space-x-2 px-6 py-3 border-r border-white/5 hover:bg-white/5 rounded-l-full transition-all ${isBoosted ? 'text-cyan-400' : 'text-zinc-500 hover:text-white'}`}
+                  >
+                    <Zap className={`w-5 h-5 ${isBoosted ? 'fill-current animate-pulse' : ''}`} />
+                    <span className="text-xs font-black tracking-widest uppercase">{isBoosted ? 'Boosted' : 'Boost'}</span>
                   </button>
                   <button className="flex items-center px-6 py-3 hover:bg-white/5 rounded-r-full transition-colors">
                     <Activity className="w-5 h-5 text-zinc-600" />
@@ -83,7 +104,7 @@ const Watch: React.FC = () => {
                 </div>
                 <button className="flex items-center space-x-2 glass px-6 py-3 rounded-full hover:bg-white/5 border-white/10 transition-all">
                   <Share2 className="w-5 h-5 text-white/50" />
-                  <span className="text-xs font-black tracking-widest uppercase">Link</span>
+                  <span className="text-xs font-black tracking-widest uppercase text-white/50">Link</span>
                 </button>
                 <button className="p-3 glass rounded-full border-white/10">
                   <MoreHorizontal className="w-5 h-5" />

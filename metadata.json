@@ -1,6 +1,6 @@
 {
-  "name": "AetherFlow",
-  "description": "Next-generation neural media ecosystem powered by Gemini and Veo.",
+  "name": "AetherFlow by Asanix Developers",
+  "description": "Next-generation neural media ecosystem powered by Gemini and Veo. Engineered by Asanix Developers.",
   "requestFramePermissions": [
     "camera",
     "microphone"

@@ -2,7 +2,6 @@
 import { GoogleGenAI, Type } from "@google/genai";
 
 // Initialize AI with the environment key.
-// Guidelines: MUST NOT define process.env or ask user for key.
 const getAI = () => new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const getAISearchResults = async (query: string, videos: any[]) => {
@@ -18,7 +17,8 @@ export const getAISearchResults = async (query: string, videos: any[]) => {
         responseSchema: {
           type: Type.ARRAY,
           items: { type: Type.STRING }
-        }
+        },
+        systemInstruction: "You are the AetherFlow Neural Indexer developed by Asanix Developers. Your job is to accurately match user intent to our video data fragments."
       }
     });
 
@@ -42,7 +42,7 @@ export const getVideoSummary = async (title: string, description: string) => {
       Title: ${title}
       Description: ${description}`,
       config: {
-        systemInstruction: "You are a concise video summarizer. Provide a 2-3 sentence engaging summary."
+        systemInstruction: "You are a concise video summarizer for AetherFlow by Asanix Developers. Provide a 2-3 sentence engaging, futuristic summary."
       }
     });
     return response.text;
@@ -52,19 +52,16 @@ export const getVideoSummary = async (title: string, description: string) => {
 };
 
 export const generateAIVideo = async (prompt: string) => {
-  // Check if user has selected key for Veo as per guidelines
   const hasKey = await (window as any).aistudio?.hasSelectedApiKey();
   if (!hasKey) {
     await (window as any).aistudio?.openSelectKey();
-    // Assuming success after opening dialog as per guidelines
   }
 
-  // Fix: Always create a new AI instance before the generation call to use the most recent key.
   const ai = getAI();
   try {
     let operation = await ai.models.generateVideos({
       model: 'veo-3.1-fast-generate-preview',
-      prompt: prompt,
+      prompt: `${prompt}, cinematic, 8k, futuristic aesthetic, asanix quality`,
       config: {
         numberOfVideos: 1,
         resolution: '720p',
@@ -74,7 +71,6 @@ export const generateAIVideo = async (prompt: string) => {
 
     while (!operation.done) {
       await new Promise(resolve => setTimeout(resolve, 5000));
-      // Fix: Removed 'as any' casting to follow standard SDK access patterns.
       operation = await ai.operations.getVideosOperation({ operation: operation });
     }
 

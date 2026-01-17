@@ -6,69 +6,99 @@ import { Home, Zap, Layers, Activity, Heart, Shield, Terminal, Globe, Cpu, Atom 
 export const MOCK_VIDEOS: Video[] = [
   {
     id: 'f1',
-    title: 'Quantum Entanglement: A Beginner\'s Guide to Teleportation',
-    thumbnail: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800',
-    duration: '08:12',
-    views: '45M flows',
+    title: 'Asanix Quantum Core: The Future of Neural Processing',
+    thumbnail: 'https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&q=80&w=800',
+    duration: '12:45',
+    views: '890M flows',
     uploadedAt: '2 cycles ago',
     author: {
-      name: 'OmniScience',
-      avatar: 'https://i.pravatar.cc/150?u=omni',
-      subscribers: '12M'
+      name: 'Asanix Labs',
+      avatar: 'https://i.pravatar.cc/150?u=asanix',
+      subscribers: '150M'
     },
-    description: 'Mastering the basics of particle relocation for commercial use.',
+    description: 'A deep dive into the latest Asanix Developers silicon-neural hybrid architecture.',
     category: Category.Technology
   },
   {
     id: 'f2',
-    title: 'Mars Base Alpha: First Contact With Subsurface Liquid',
-    thumbnail: 'https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&q=80&w=800',
-    duration: '15:40',
-    views: '120M flows',
-    uploadedAt: 'Yesterday',
+    title: 'Interstellar Drift: Live from the Andromeda Gateway',
+    thumbnail: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&q=80&w=800',
+    duration: 'LIVE',
+    views: '2B flows',
+    uploadedAt: 'Ongoing',
     author: {
-      name: 'Interstellar News',
-      avatar: 'https://i.pravatar.cc/150?u=mars',
-      subscribers: '88M'
+      name: 'DeepSpace Network',
+      avatar: 'https://i.pravatar.cc/150?u=space',
+      subscribers: '500M'
     },
-    description: 'Historic footage from the Valles Marineris exploration team.',
+    description: 'High-fidelity visual stream from the edge of our local cluster.',
     category: Category.Space
   },
   {
     id: 'f3',
-    title: 'The Rise of Bio-Synthetic Hearts',
-    thumbnail: 'https://images.unsplash.com/photo-1551288049-bbbda536ad39?auto=format&fit=crop&q=80&w=800',
-    duration: '22:15',
-    views: '8M flows',
-    uploadedAt: '5 days ago',
+    title: 'Synthesizing Emotion: AI Music for the Soul',
+    thumbnail: 'https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=800',
+    duration: '45:20',
+    views: '12M flows',
+    uploadedAt: '5 cycles ago',
     author: {
-      name: 'LifePlus+',
-      avatar: 'https://i.pravatar.cc/150?u=life',
-      subscribers: '4M'
+      name: 'Neural Melodies',
+      avatar: 'https://i.pravatar.cc/150?u=music',
+      subscribers: '8M'
     },
-    description: 'A documentary on the integration of neural links with biological organs.',
-    category: Category.AI
+    description: 'Experience sounds generated directly from neural feedback loops.',
+    category: Category.Music
   },
   {
     id: 'f4',
-    title: 'Cyber-Jazz: The New Sound of Neo-Tokyo',
-    thumbnail: 'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?auto=format&fit=crop&q=80&w=800',
-    duration: '1:04:12',
-    views: '19M flows',
-    uploadedAt: '1 month ago',
+    title: 'Neo-Tokyo Survival: A Cyber-Traveler\'s Log',
+    thumbnail: 'https://images.unsplash.com/photo-1515462277126-2dd0c162007a?auto=format&fit=crop&q=80&w=800',
+    duration: '22:10',
+    views: '45M flows',
+    uploadedAt: '1 cycle ago',
     author: {
-      name: 'SonicWaves',
-      avatar: 'https://i.pravatar.cc/150?u=sonic',
-      subscribers: '15M'
+      name: 'Vagabond 2050',
+      avatar: 'https://i.pravatar.cc/150?u=vaga',
+      subscribers: '2M'
     },
-    description: 'Immersive audio experience from the world\'s first AI-human fusion orchestra.',
-    category: Category.Music
+    description: 'Tips for navigating the high-density grid sectors of the new capital.',
+    category: Category.Travel
+  },
+  {
+    id: 'f5',
+    title: 'The Great Firewall: Defending the Global Mesh',
+    thumbnail: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800',
+    duration: '18:05',
+    views: '156M flows',
+    uploadedAt: '3 cycles ago',
+    author: {
+      name: 'Cyber Sentinel',
+      avatar: 'https://i.pravatar.cc/150?u=sentinel',
+      subscribers: '34M'
+    },
+    description: 'Understanding the Asanix-grade security protocols protecting our data.',
+    category: Category.Technology
+  },
+  {
+    id: 'f6',
+    title: 'Culinary Synthesis: 3D Printing Gourmet Meals',
+    thumbnail: 'https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&q=80&w=800',
+    duration: '08:50',
+    views: '5M flows',
+    uploadedAt: '1 cycle ago',
+    author: {
+      name: 'Future Chef',
+      avatar: 'https://i.pravatar.cc/150?u=chef',
+      subscribers: '1M'
+    },
+    description: 'How to calibrate your molecular printer for the perfect Wagyu steak.',
+    category: Category.Cooking
   }
 ];
 
 export const MOCK_COMMENTS: Comment[] = [
-  { id: 'c1', author: 'Zenith-9', avatar: 'https://i.pravatar.cc/150?u=z9', text: 'My neural link just peaked during that drop. Insane bandwidth!', likes: 4500, time: '2m' },
-  { id: 'c2', author: 'Nova_Prime', avatar: 'https://i.pravatar.cc/150?u=np', text: 'Is this available for retinal projection yet?', likes: 120, time: '15m' }
+  { id: 'c1', author: 'NexusExplorer', avatar: 'https://i.pravatar.cc/150?u=nexus', text: 'The Asanix core is actually faster than my local retinal link. Incredible latency!', likes: 8900, time: '1m' },
+  { id: 'c2', author: 'VoidWalker', avatar: 'https://i.pravatar.cc/150?u=void', text: 'Is this 16K neural projection compatible?', likes: 450, time: '12m' }
 ];
 
 export const NAV_ITEMS = [
