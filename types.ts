@@ -1,4 +1,10 @@
 
+export enum Modality {
+  VIDEO = 'VIDEO',
+  BURST = 'BURST',
+  LIVE = 'LIVE'
+}
+
 export interface Video {
   id: string;
   title: string;
@@ -13,6 +19,8 @@ export interface Video {
   };
   description: string;
   category: string;
+  modality: Modality;
+  liveViewers?: string;
   videoUrl?: string;
 }
 

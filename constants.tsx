@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { Video, Category, Comment } from './types';
-import { Home, Zap, Layers, Activity, Heart, Shield, Terminal, Globe, Cpu, Atom } from 'lucide-react';
+import { Video, Category, Comment, Modality } from './types';
+import { Home, Zap, Layers, Activity, Heart, Shield, Terminal, Globe, Cpu, Radio } from 'lucide-react';
 
 export const MOCK_VIDEOS: Video[] = [
   {
@@ -16,57 +16,62 @@ export const MOCK_VIDEOS: Video[] = [
       avatar: 'https://i.pravatar.cc/150?u=asanix',
       subscribers: '150M'
     },
-    description: 'A deep dive into the latest Asanix Developers silicon-neural hybrid architecture.',
-    category: Category.Technology
+    description: 'A deep dive into the latest Asanix Developers silicon-neural hybrid architecture. Understanding the 2050 mesh protocol.',
+    category: Category.Technology,
+    modality: Modality.VIDEO
+  },
+  {
+    id: 'b1',
+    title: 'Neural OS Installation Guide 2050',
+    thumbnail: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=400',
+    duration: '0:15',
+    views: '2M bursts',
+    uploadedAt: '5h ago',
+    author: {
+      name: 'Asanix Dev Support',
+      avatar: 'https://i.pravatar.cc/150?u=tech',
+      subscribers: '12M'
+    },
+    description: 'Quick setup for your neural retinal link.',
+    category: Category.Technology,
+    modality: Modality.BURST
+  },
+  {
+    id: 'l1',
+    title: 'FLUX: First Water Discovery on Gale Crater',
+    thumbnail: 'https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&q=80&w=800',
+    duration: 'LIVE',
+    views: '12K in flux',
+    uploadedAt: 'Started 20m ago',
+    author: {
+      name: 'NASA Neural',
+      avatar: 'https://i.pravatar.cc/150?u=nasa',
+      subscribers: '80M'
+    },
+    description: 'Watching the first water extraction live from Gale Crater via MarsMesh.',
+    category: Category.Space,
+    modality: Modality.LIVE,
+    liveViewers: '12,400'
+  },
+  {
+    id: 'b2',
+    title: 'Zero-G Culinary Experiments',
+    thumbnail: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&q=80&w=400',
+    duration: '0:45',
+    views: '400K bursts',
+    uploadedAt: '1d ago',
+    author: {
+      name: 'AstroChef 2050',
+      avatar: 'https://i.pravatar.cc/150?u=astro',
+      subscribers: '1M'
+    },
+    description: 'Cooking becomes an orbital art form.',
+    category: Category.Cooking,
+    modality: Modality.BURST
   },
   {
     id: 'f2',
-    title: 'Interstellar Drift: Live from the Andromeda Gateway',
-    thumbnail: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&q=80&w=800',
-    duration: 'LIVE',
-    views: '2B flows',
-    uploadedAt: 'Ongoing',
-    author: {
-      name: 'DeepSpace Network',
-      avatar: 'https://i.pravatar.cc/150?u=space',
-      subscribers: '500M'
-    },
-    description: 'High-fidelity visual stream from the edge of our local cluster.',
-    category: Category.Space
-  },
-  {
-    id: 'f3',
-    title: 'Synthesizing Emotion: AI Music for the Soul',
-    thumbnail: 'https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=800',
-    duration: '45:20',
-    views: '12M flows',
-    uploadedAt: '5 cycles ago',
-    author: {
-      name: 'Neural Melodies',
-      avatar: 'https://i.pravatar.cc/150?u=music',
-      subscribers: '8M'
-    },
-    description: 'Experience sounds generated directly from neural feedback loops.',
-    category: Category.Music
-  },
-  {
-    id: 'f4',
-    title: 'Neo-Tokyo Survival: A Cyber-Traveler\'s Log',
-    thumbnail: 'https://images.unsplash.com/photo-1515462277126-2dd0c162007a?auto=format&fit=crop&q=80&w=800',
-    duration: '22:10',
-    views: '45M flows',
-    uploadedAt: '1 cycle ago',
-    author: {
-      name: 'Vagabond 2050',
-      avatar: 'https://i.pravatar.cc/150?u=vaga',
-      subscribers: '2M'
-    },
-    description: 'Tips for navigating the high-density grid sectors of the new capital.',
-    category: Category.Travel
-  },
-  {
-    id: 'f5',
-    title: 'The Great Firewall: Defending the Global Mesh',
+    title: 'The Great Firewall: Global Data Defense',
     thumbnail: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800',
     duration: '18:05',
     views: '156M flows',
@@ -76,35 +81,38 @@ export const MOCK_VIDEOS: Video[] = [
       avatar: 'https://i.pravatar.cc/150?u=sentinel',
       subscribers: '34M'
     },
-    description: 'Understanding the Asanix-grade security protocols protecting our data.',
-    category: Category.Technology
+    description: 'Understanding the Asanix-grade security protocols protecting our global data mesh.',
+    category: Category.Technology,
+    modality: Modality.VIDEO
   },
   {
-    id: 'f6',
-    title: 'Culinary Synthesis: 3D Printing Gourmet Meals',
-    thumbnail: 'https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&q=80&w=800',
-    duration: '08:50',
-    views: '5M flows',
-    uploadedAt: '1 cycle ago',
+    id: 'l2',
+    title: 'Asanix Developers Keynote: Project Aether',
+    thumbnail: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=800',
+    duration: 'LIVE',
+    views: '1.2M in flux',
+    uploadedAt: 'Started 2h ago',
     author: {
-      name: 'Future Chef',
-      avatar: 'https://i.pravatar.cc/150?u=chef',
-      subscribers: '1M'
+      name: 'Asanix HQ',
+      avatar: 'https://i.pravatar.cc/150?u=asanixhq',
+      subscribers: '200M'
     },
-    description: 'How to calibrate your molecular printer for the perfect Wagyu steak.',
-    category: Category.Cooking
+    description: 'Revealing the new Aether-Mesh protocol live from the Tokyo Dome.',
+    category: Category.Technology,
+    modality: Modality.LIVE,
+    liveViewers: '1.2M'
   }
 ];
 
 export const MOCK_COMMENTS: Comment[] = [
   { id: 'c1', author: 'NexusExplorer', avatar: 'https://i.pravatar.cc/150?u=nexus', text: 'The Asanix core is actually faster than my local retinal link. Incredible latency!', likes: 8900, time: '1m' },
-  { id: 'c2', author: 'VoidWalker', avatar: 'https://i.pravatar.cc/150?u=void', text: 'Is this 16K neural projection compatible?', likes: 450, time: '12m' }
+  { id: 'c2', author: 'VoidWalker', avatar: 'https://i.pravatar.cc/150?u=void', text: 'Is this 16K neural projection compatible with the AetherFlow protocol?', likes: 450, time: '12m' }
 ];
 
 export const NAV_ITEMS = [
   { icon: <Home className="w-5 h-5" />, label: 'Nexus', id: 'home' },
-  { icon: <Zap className="w-5 h-5" />, label: 'Burst Feed', id: 'shorts' },
-  { icon: <Layers className="w-5 h-5" />, label: 'Sub-Networks', id: 'subs' },
+  { icon: <Zap className="w-5 h-5" />, label: 'Burst Feed', id: 'bursts' },
+  { icon: <Radio className="w-5 h-5" />, label: 'Live Flux', id: 'live' },
 ];
 
 export const LIB_ITEMS = [

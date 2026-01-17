@@ -1,17 +1,20 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, Search, Video, Bell, User, Cpu, Sparkles, Zap, Shield, Info } from 'lucide-react';
+import { Menu, Search, Plus, Bell, User, Cpu, Sparkles, Zap, Shield, Info, Video as VideoIcon, Radio, X } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 
 interface HeaderProps {
   onSearch: (query: string) => void;
   onToggleSidebar: () => void;
+  onOpenUpload: (type: 'VIDEO' | 'BURST' | 'LIVE') => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onSearch, onToggleSidebar }) => {
+const Header: React.FC<HeaderProps> = ({ onSearch, onToggleSidebar, onOpenUpload }) => {
   const [query, setQuery] = useState('');
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [createMenuOpen, setCreateMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const createRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   const handleSearch = (e: React.FormEvent) => {
@@ -24,6 +27,9 @@ const Header: React.FC<HeaderProps> = ({ onSearch, onToggleSidebar }) => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setNotificationsOpen(false);
+      }
+      if (createRef.current && !createRef.current.contains(event.target as Node)) {
+        setCreateMenuOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -75,9 +81,45 @@ const Header: React.FC<HeaderProps> = ({ onSearch, onToggleSidebar }) => {
       </div>
 
       <div className="flex items-center space-x-4">
+        <div className="relative" ref={createRef}>
+          <button 
+            onClick={() => setCreateMenuOpen(!createMenuOpen)}
+            className={`flex items-center space-x-2 px-4 py-2 rounded-full border transition-all group ${createMenuOpen ? 'bg-cyan-500 text-black border-cyan-500' : 'bg-white/5 border-white/10 text-white hover:border-cyan-500/50'}`}
+          >
+            <Plus className={`w-5 h-5 ${createMenuOpen ? 'rotate-45' : ''} transition-transform`} />
+            <span className="text-[10px] font-black tracking-[0.2em] hidden lg:block uppercase">Create</span>
+          </button>
+
+          {createMenuOpen && (
+            <div className="absolute right-0 mt-4 w-56 glass border border-white/10 rounded-2xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-200">
+              <button 
+                onClick={() => { onOpenUpload('VIDEO'); setCreateMenuOpen(false); }}
+                className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-white/5 transition-colors group"
+              >
+                <VideoIcon className="w-4 h-4 text-zinc-400 group-hover:text-cyan-400" />
+                <span className="text-[10px] font-black tracking-widest uppercase">Upload Video</span>
+              </button>
+              <button 
+                onClick={() => { onOpenUpload('BURST'); setCreateMenuOpen(false); }}
+                className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-white/5 transition-colors group"
+              >
+                <Zap className="w-4 h-4 text-zinc-400 group-hover:text-cyan-400" />
+                <span className="text-[10px] font-black tracking-widest uppercase">Transmit Burst</span>
+              </button>
+              <button 
+                onClick={() => { onOpenUpload('LIVE'); setCreateMenuOpen(false); }}
+                className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-white/5 transition-colors group"
+              >
+                <Radio className="w-4 h-4 text-zinc-400 group-hover:text-red-500" />
+                <span className="text-[10px] font-black tracking-widest uppercase">Initiate Flux</span>
+              </button>
+            </div>
+          )}
+        </div>
+
         <Link to="/generate" className="flex items-center space-x-2 bg-white/5 px-4 py-2 rounded-full border border-white/10 hover:border-cyan-500/30 transition-all group">
           <Sparkles className="w-5 h-5 text-cyan-400 group-hover:animate-pulse" />
-          <span className="text-xs font-bold tracking-widest hidden lg:block">REALITY ENGINE</span>
+          <span className="text-[10px] font-black tracking-[0.2em] hidden lg:block uppercase">Engine</span>
         </Link>
         
         <div className="relative" ref={dropdownRef}>
@@ -91,11 +133,12 @@ const Header: React.FC<HeaderProps> = ({ onSearch, onToggleSidebar }) => {
 
           {notificationsOpen && (
             <div className="absolute right-0 mt-4 w-80 glass border border-white/10 rounded-2xl shadow-2xl py-4 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-              <div className="px-6 pb-2 border-b border-white/5 mb-2">
+              <div className="px-6 pb-2 border-b border-white/5 mb-2 flex justify-between items-center">
                 <span className="text-[10px] font-black tracking-widest uppercase text-cyan-400">Neural Alerts</span>
+                <span className="text-[8px] text-zinc-600 font-bold uppercase cursor-pointer hover:text-white">Clear All</span>
               </div>
               {notifications.map((n, i) => (
-                <div key={i} className="px-6 py-3 hover:bg-white/5 flex items-start space-x-4 cursor-pointer transition-colors">
+                <div key={i} className="px-6 py-3 hover:bg-white/5 flex items-start space-x-4 cursor-pointer transition-colors border-b border-white/5 last:border-0">
                   <div className="mt-1">{n.icon}</div>
                   <div>
                     <p className="text-xs text-white/90 leading-tight mb-1">{n.text}</p>
@@ -103,16 +146,16 @@ const Header: React.FC<HeaderProps> = ({ onSearch, onToggleSidebar }) => {
                   </div>
                 </div>
               ))}
-              <div className="px-6 pt-2 mt-2 border-t border-white/5">
-                <button className="text-[9px] font-black text-cyan-400/50 hover:text-cyan-400 uppercase tracking-widest w-full text-center">Clear Transmission Buffer</button>
+              <div className="px-6 pt-2 mt-2">
+                <button className="text-[9px] font-black text-cyan-400/50 hover:text-cyan-400 uppercase tracking-widest w-full text-center">View Archive</button>
               </div>
             </div>
           )}
         </div>
 
-        <div className="w-10 h-10 rounded-full p-[2px] bg-gradient-to-tr from-cyan-500 to-purple-500 cursor-pointer hover:scale-105 transition-transform">
-          <div className="w-full h-full bg-black rounded-full flex items-center justify-center">
-            <User className="w-5 h-5 text-cyan-400" />
+        <div className="w-10 h-10 rounded-full p-[2px] bg-gradient-to-tr from-cyan-400 to-purple-500 cursor-pointer hover:scale-105 transition-transform">
+          <div className="w-full h-full bg-black rounded-full flex items-center justify-center overflow-hidden">
+            <img src="https://i.pravatar.cc/150?u=asanix" alt="User Profile" className="w-full h-full object-cover" />
           </div>
         </div>
       </div>
