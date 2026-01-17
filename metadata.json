@@ -1,6 +1,6 @@
 {
-  "name": "GemTube",
-  "description": "A high-performance, AI-enhanced video sharing platform featuring intelligent search, video summaries, and AI video generation powered by Gemini and Veo.",
+  "name": "AetherFlow",
+  "description": "Next-generation neural media ecosystem powered by Gemini and Veo.",
   "requestFramePermissions": [
     "camera",
     "microphone"

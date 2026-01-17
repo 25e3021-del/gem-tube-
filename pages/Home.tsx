@@ -5,6 +5,7 @@ import { Video, Category } from '../types';
 import VideoCard from '../components/VideoCard';
 import CategoryBar from '../components/CategoryBar';
 import { getAISearchResults } from '../services/gemini';
+import { Loader2 } from 'lucide-react';
 
 interface HomeProps {
   searchQuery: string;
@@ -34,28 +35,29 @@ const Home: React.FC<HomeProps> = ({ searchQuery }) => {
   }, [searchQuery, selectedCategory]);
 
   return (
-    <div className="flex-1 min-h-screen bg-[#0f0f0f] pb-10">
+    <div className="flex-1 min-h-screen bg-[#050505] pb-20">
       <CategoryBar 
         selected={selectedCategory} 
         onSelect={setSelectedCategory} 
       />
       
       {isSearching && (
-        <div className="px-4 py-4 flex items-center space-x-2">
-          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" />
-          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce delay-75" />
-          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce delay-150" />
-          <span className="text-sm text-zinc-400 ml-2">Gemini is searching for the best videos...</span>
+        <div className="px-8 py-6 flex items-center space-x-3 bg-cyan-500/5 border-b border-cyan-500/10 animate-pulse">
+          <Loader2 className="w-4 h-4 text-cyan-400 animate-spin" />
+          <span className="text-[10px] font-black text-cyan-400 tracking-[0.3em] uppercase">Mining Neural Data Layers...</span>
         </div>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-10 px-4 mt-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-6 gap-y-12 px-8 mt-8">
         {filteredVideos.map((video) => (
-          <VideoCard key={video.id} video={video} />
+          <div key={video.id} className="animate-in fade-in zoom-in-95 duration-500">
+            <VideoCard video={video} />
+          </div>
         ))}
         {filteredVideos.length === 0 && !isSearching && (
-          <div className="col-span-full text-center py-20 text-zinc-500">
-            No videos found. Try a different search!
+          <div className="col-span-full text-center py-40">
+            <div className="text-zinc-800 text-6xl font-black mb-4 font-futuristic">404_VOID</div>
+            <p className="text-zinc-600 font-bold uppercase tracking-widest text-xs">No data nodes found for this frequency.</p>
           </div>
         )}
       </div>
