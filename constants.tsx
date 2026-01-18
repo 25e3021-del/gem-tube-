@@ -34,8 +34,8 @@ const generateMockData = () => {
     });
   }
 
-  // 200 REELS
-  for (let i = 1; i <= 200; i++) {
+  // 150 REELS
+  for (let i = 1; i <= 150; i++) {
     const author = authors[i % authors.length];
     data.push({
       id: `r-${i}`,
@@ -48,23 +48,6 @@ const generateMockData = () => {
       description: 'Short form content test.',
       category: Category.Technology,
       modality: Modality.REELS
-    });
-  }
-
-  // 150 IMAGES
-  for (let i = 1; i <= 150; i++) {
-    const author = authors[i % authors.length];
-    data.push({
-      id: `img-${i}`,
-      title: `Visual Data Node #${i}`,
-      thumbnail: `https://picsum.photos/seed/img${i}/600/600`,
-      duration: 'STATIC',
-      views: `${Math.floor(Math.random() * 500)}K likes`,
-      uploadedAt: 'Now',
-      author: { ...author, subscribers: 'Verified' },
-      description: 'Static image fragment for software visual checking.',
-      category: Category.Photos,
-      modality: Modality.IMAGE
     });
   }
 

@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { Sparkles, Video, Download, RotateCcw, Loader2, Zap, Terminal, Globe } from 'lucide-react';
-import { generateAIVideo } from '../services/gemini';
+import { Video, Loader2, Zap, Globe } from 'lucide-react';
+import { aiService } from '../services/gemini';
 
 const Generate: React.FC = () => {
   const [prompt, setPrompt] = useState('');
@@ -17,7 +17,7 @@ const Generate: React.FC = () => {
     setVideoUrl(null);
 
     try {
-      const url = await generateAIVideo(prompt);
+      const url = await aiService.generateVideo(prompt);
       setVideoUrl(url);
     } catch (err: any) {
       setError(err.message || 'Generation failed.');
@@ -48,11 +48,9 @@ const Generate: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div className="space-y-8">
             <div className="p-8 glass rounded-[40px] border border-white/5 shadow-2xl relative group">
-              <label className="block text-[11px] font-bold text-cyan-400/50 mb-6 uppercase tracking-[0.4em]">
-                Enter your prompt
-              </label>
+              <label className="block text-[11px] font-bold text-cyan-400/50 mb-6 uppercase tracking-[0.4em]">Enter your prompt</label>
               <textarea
-                className="w-full h-56 bg-black/40 rounded-3xl p-6 outline-none border border-white/5 focus:border-cyan-500/50 text-white placeholder-zinc-700 resize-none text-lg font-medium tracking-tight transition-all"
+                className="w-full h-56 bg-black/40 rounded-3xl p-6 outline-none border border-white/5 focus:border-cyan-500/50 text-white placeholder-zinc-700 resize-none text-lg font-medium transition-all"
                 placeholder="Describe the video you want to create..."
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
@@ -63,42 +61,33 @@ const Generate: React.FC = () => {
                 onClick={handleGenerate}
                 disabled={isGenerating || !prompt}
                 className={`w-full mt-10 py-5 rounded-3xl font-black text-xl flex items-center justify-center space-x-4 transition-all uppercase tracking-[0.2em] relative overflow-hidden group ${
-                  isGenerating 
-                    ? 'bg-zinc-900 cursor-not-allowed text-zinc-700' 
-                    : 'bg-white text-black hover:bg-cyan-400'
+                  isGenerating ? 'bg-zinc-900 text-zinc-700' : 'bg-white text-black hover:bg-cyan-400'
                 }`}
               >
                 {isGenerating ? (
-                  <>
-                    <Loader2 className="w-6 h-6 animate-spin" />
-                    <span>Creating...</span>
-                  </>
+                  <><Loader2 className="w-6 h-6 animate-spin" /><span>Creating...</span></>
                 ) : (
-                  <>
-                    <Zap className="w-6 h-6 fill-current" />
-                    <span>Create Video</span>
-                  </>
+                  <><Zap className="w-6 h-6 fill-current" /><span>Create Video</span></>
                 )}
               </button>
+              {error && <p className="mt-4 text-red-500 text-xs font-bold uppercase text-center">{error}</p>}
             </div>
           </div>
 
-          <div className="flex flex-col">
-            <div className="relative aspect-video bg-black rounded-[40px] border border-white/5 overflow-hidden flex items-center justify-center shadow-[0_0_100px_rgba(0,0,0,0.5)] group">
-              {videoUrl ? (
-                <video src={videoUrl} className="w-full h-full object-cover" controls autoPlay loop />
-              ) : isGenerating ? (
-                <div className="text-center p-12 relative z-10">
-                  <h3 className="text-2xl font-bold uppercase italic tracking-widest mb-4">Creating Video</h3>
-                  <p className="text-zinc-600 text-xs font-bold uppercase tracking-[0.5em]">This might take a minute...</p>
-                </div>
-              ) : (
-                <div className="text-center p-12 opacity-20">
-                  <Video className="w-24 h-24 text-zinc-500 mx-auto mb-6" />
-                  <p className="text-zinc-500 font-bold uppercase tracking-[0.4em] text-xs">Waiting for prompt</p>
-                </div>
-              )}
-            </div>
+          <div className="relative aspect-video bg-black rounded-[40px] border border-white/5 overflow-hidden flex items-center justify-center shadow-2xl">
+            {videoUrl ? (
+              <video src={videoUrl} className="w-full h-full object-cover" controls autoPlay loop />
+            ) : isGenerating ? (
+              <div className="text-center p-12">
+                <h3 className="text-2xl font-bold uppercase italic tracking-widest mb-4">Creating Video</h3>
+                <p className="text-zinc-600 text-xs font-bold uppercase tracking-[0.5em]">Syncing with neural mesh...</p>
+              </div>
+            ) : (
+              <div className="text-center opacity-20">
+                <Video className="w-24 h-24 text-zinc-500 mx-auto mb-6" />
+                <p className="text-zinc-500 font-bold uppercase tracking-[0.4em] text-xs">Waiting for prompt</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -11,6 +11,8 @@ export interface User {
   name: string;
   avatar: string;
   email?: string;
+  subscribers?: string;
+  bio?: string;
 }
 
 export interface Video {

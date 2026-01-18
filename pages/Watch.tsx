@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Video } from '../types';
 import { Zap, Share2, MoreHorizontal, Sparkles } from 'lucide-react';
-import { getVideoSummary } from '../services/gemini';
+import { aiService } from '../services/gemini';
 import VideoCard from '../components/VideoCard';
 
 interface WatchProps {
@@ -32,13 +32,13 @@ const Watch: React.FC<WatchProps> = ({ videos, onWatch, likedIds, onToggleLike, 
     }
     setSummary(null);
     window.scrollTo(0, 0);
-  }, [id, video]);
+  }, [id, video, onWatch]);
 
   const handleSummarize = async () => {
     if (!video) return;
     setIsSummarizing(true);
-    const res = await getVideoSummary(video.title, video.description);
-    setSummary(res || "Summary unavailable.");
+    const res = await aiService.summarizeVideo(video.title, video.description);
+    setSummary(res);
     setIsSummarizing(false);
   };
 
@@ -57,10 +57,7 @@ const Watch: React.FC<WatchProps> = ({ videos, onWatch, likedIds, onToggleLike, 
               <>
                 <img src={video.thumbnail} className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-[3s]" alt="Player" />
                 <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px]">
-                   <button 
-                    onClick={() => setIsPlaying(true)}
-                    className="w-24 h-24 glass rounded-full flex items-center justify-center border-white/10 group-hover:border-cyan-500/50 transition-all shadow-2xl hover:scale-110"
-                   >
+                   <button onClick={() => setIsPlaying(true)} className="w-24 h-24 glass rounded-full flex items-center justify-center border-white/10 group-hover:border-cyan-500/50 transition-all shadow-2xl hover:scale-110">
                       <div className="w-0 h-0 border-t-[14px] border-t-transparent border-l-[24px] border-l-cyan-400 border-b-[14px] border-b-transparent ml-2"></div>
                    </button>
                 </div>
@@ -68,24 +65,19 @@ const Watch: React.FC<WatchProps> = ({ videos, onWatch, likedIds, onToggleLike, 
             )}
           </div>
 
-          <div className="mt-8 flex flex-col gap-4">
+          <div className="mt-8 space-y-4">
             <h1 className="text-3xl font-bold uppercase tracking-tight font-futuristic">{video.title}</h1>
-
             <div className="flex flex-wrap items-center justify-between gap-6">
               <div className="flex items-center space-x-4">
-                <img src={video.author.avatar} className="w-12 h-12 rounded-full border border-white/10" />
+                <img src={video.author.avatar} className="w-12 h-12 rounded-full border border-white/10" alt="Avatar" />
                 <div>
                   <span className="font-bold text-lg block">{video.author.name}</span>
                   <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest">{video.author.subscribers} Subscribers</span>
                 </div>
-                <button 
-                  onClick={() => onToggleSubscribe(video.author.name)} 
-                  className={`px-6 py-2.5 rounded-full text-xs font-black transition-all uppercase tracking-widest ${isSubscribed ? 'bg-zinc-800 text-zinc-500' : 'bg-white text-black hover:bg-cyan-400'}`}
-                >
+                <button onClick={() => onToggleSubscribe(video.author.name)} className={`px-6 py-2.5 rounded-full text-xs font-black transition-all uppercase tracking-widest ${isSubscribed ? 'bg-zinc-800 text-zinc-500' : 'bg-white text-black hover:bg-cyan-400'}`}>
                   {isSubscribed ? 'Subscribed' : 'Subscribe'}
                 </button>
               </div>
-
               <div className="flex items-center space-x-3">
                 <button onClick={() => onToggleLike(id!)} className={`flex items-center space-x-2 px-6 py-3 glass rounded-full border border-white/10 transition-all ${isLiked ? 'text-cyan-400 border-cyan-500/50' : 'text-zinc-500 hover:text-white'}`}>
                   <Zap className={`w-5 h-5 ${isLiked ? 'fill-current' : ''}`} />
@@ -95,8 +87,7 @@ const Watch: React.FC<WatchProps> = ({ videos, onWatch, likedIds, onToggleLike, 
                 <button className="glass p-3 rounded-full border-white/10 hover:text-white transition-colors"><MoreHorizontal className="w-5 h-5" /></button>
               </div>
             </div>
-
-            <div className="mt-4 p-6 glass rounded-[32px] border border-cyan-500/10 bg-white/[0.02]">
+            <div className="p-6 glass rounded-[32px] border border-cyan-500/10 bg-white/[0.02]">
               <div className="flex items-center justify-between mb-6 text-[11px] font-bold text-zinc-500 uppercase tracking-widest">
                 <span>{video.views} • {video.uploadedAt}</span>
                 <button onClick={handleSummarize} className={`text-cyan-400 flex items-center space-x-2 hover:scale-105 transition-transform ${isSummarizing ? 'animate-pulse' : ''}`}>
@@ -105,7 +96,7 @@ const Watch: React.FC<WatchProps> = ({ videos, onWatch, likedIds, onToggleLike, 
                 </button>
               </div>
               <p className="text-sm text-zinc-400 leading-relaxed font-medium">{video.description}</p>
-              {summary && <div className="mt-6 pt-6 border-t border-white/5 text-cyan-50/70 italic text-sm leading-relaxed animate-in fade-in slide-in-from-top-2">"{summary}"</div>}
+              {summary && <div className="mt-6 pt-6 border-t border-white/5 text-cyan-50/70 italic text-sm animate-in fade-in slide-in-from-top-2">"{summary}"</div>}
             </div>
           </div>
         </div>
